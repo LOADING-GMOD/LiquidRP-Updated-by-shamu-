@@ -401,7 +401,7 @@ function LDRP.BankMenu(ply,cmd,args)
 
 		if  string.len( self:GetValue() ) > 0 then 
 
-			draw.SimpleText( PrettyFormatNumber( util.StringToType( InputCash:GetValue() , "int" ) ), "ShamuEntryFont" , 155.5 , 3.5 , color_white , TEXT_ALIGN_CENTER )
+			draw.SimpleText( PrettyFormatCash( util.StringToType( InputCash:GetValue() , "int" ) ), "ShamuEntryFont" , 155.5 , 3.5 , color_white , TEXT_ALIGN_CENTER )
    
         elseif string.len( self:GetValue() ) <= 0 then 
 

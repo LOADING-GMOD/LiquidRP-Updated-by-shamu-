@@ -10,7 +10,7 @@ local function attachCurrency(str)
     return config.currencyLeft and config.currency .. str or str .. config.currency
 end
 
-function PrettyFormatNumber(n)  // taken from the newest version of darkrp 
+function PrettyFormatCash(n)  // taken from the newest version of darkrp 
 
     if not n then return attachCurrency("0") end
 
