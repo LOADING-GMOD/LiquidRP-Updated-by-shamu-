@@ -366,16 +366,15 @@ end
  Money
  ---------------------------------------------------------*/
 function meta:CanAfford(amount)
+
 	if not amount then return false end
-
-
-	print(self:getDarkRPVar("money"))
 
 	return math.floor(amount) >= 0 and self:getDarkRPVar("money") - math.floor(amount) >= 0
 	
 end
 
 function meta:AddMoney(amount)
+
 	if not amount then return false end
 	local total = self:getDarkRPVar("money") + math.floor(amount)
 	total = hook.Call("PlayerWalletChanged", GAMEMODE, self, amount, self:getDarkRPVar("money")) or total
@@ -384,6 +383,7 @@ function meta:AddMoney(amount)
 
 	if self.DarkRPUnInitialized then return end
 	DB.StoreMoney(self, total)
+	
 end
 
 function meta:PayDay()
