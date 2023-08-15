@@ -102,8 +102,12 @@ if CLIENT then
 		if type(self.DoorData.AllowedToOwn) == "string" and self.DoorData.AllowedToOwn ~= "" and self.DoorData.AllowedToOwn ~= ";" then
 			local names = {}
 			for a,b in pairs(string.Explode(";", self.DoorData.AllowedToOwn)) do
-				if IsValid(Player(b)) then
+				if IsValid(Player( util.StringToType( b , "int" ) ) ) then // fixes b returning string 
+
+
 					table.insert(names, Player(b):Nick())
+
+
 				end
 			end
 			ownerstr = ownerstr .. string.format(LANGUAGE.keys_other_allowed).. table.concat(names, "\n").."\n"
@@ -420,15 +424,15 @@ local function SetDoorTitle(ply, args)
 
 	if IsValid(trace.Entity) and trace.Entity:IsOwnable() and ply:GetPos():Distance(trace.Entity:GetPos()) < 110 then
 		trace.Entity.DoorData = trace.Entity.DoorData or {}
-		if ply:IsSuperAdmin() then
+		//if ply:IsSuperAdmin() then // Why are we preventing people from naming a fucking door??? 
 			if trace.Entity.DoorData.NonOwnable or trace.Entity.DoorData.GroupOwn or trace.Entity.DoorData.TeamOwn then
 				DB.StoreDoorTitle(trace.Entity, args)
 				ply.LookingAtDoor = nil
 				return ""
 			end
-		elseif trace.Entity.DoorData.NonOwnable then
-			GAMEMODE:Notify(ply, 1, 6, string.format(LANGUAGE.need_admin, "/title"))
-		end
+	//	elseif trace.Entity.DoorData.NonOwnable then
+			//GAMEMODE:Notify(ply, 1, 6, string.format(LANGUAGE.need_admin, "/title"))
+		//end
 
 		if trace.Entity:OwnedBy(ply) then
 			trace.Entity.DoorData.title = args

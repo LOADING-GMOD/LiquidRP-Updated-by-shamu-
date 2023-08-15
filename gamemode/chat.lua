@@ -118,16 +118,9 @@ function GM:PlayerSay(ply, text, isTeamChat) -- We will make the old hooks run A
 	if DoSayFunc then DoSayFunc(text2) return "" end
 	text2 = RP_ActualDoSay(ply, text2, callback) 
 
-	//if string.StartWith( text , "/" ) and not string.StartWith( text , "//" ) then 
 
+	   return false 
 
-	      return false 
-
-     //  else
-
-         // return true 
-
-     //end 
 end
 
 --Remove all PlayerSay hooks, they all interfere with DarkRP's PlayerSay
@@ -164,11 +157,11 @@ function TalkToRange(ply, PlayerName, Message, size)
 	
 
 
-	net.Start( "DarkRP_Chat" )
-    net.WriteString( PlayerName )
-    net.WriteEntity( ply )
-    net.WriteString( Message )
-    net.Send(filter)
+		net.Start( "DarkRP_Chat" )
+	    net.WriteString( PlayerName )
+	    net.WriteEntity( ply )
+	    net.WriteString( Message )
+	    net.Send(filter)
 
 
 
@@ -177,43 +170,26 @@ end
 function GM:TalkToPerson(receiver, col1, text1, col2, text2, sender)
 
 
-
-        /*umsg.Start("DarkRP_Chat", receiver)
-		umsg.Short(col1.r)
-		umsg.Short(col1.g)
-		umsg.Short(col1.b)
-		umsg.String(text1)
-		if sender then
-			umsg.Entity(sender)
-		end
-		if col2 and text2 then
-			umsg.Short(col2.r)
-			umsg.Short(col2.g)
-			umsg.Short(col2.b)
-			umsg.String(text2)
-		end
-	umsg.End()
-
-	*/
-
-
 	net.Start( "DarkRP_BroadcastChat" )
 
 
-    net.WriteString( text1 ) 
+	    net.WriteString( text1 ) 
 
     if sender then
 
     	net.WriteEntity(sender)
 
     end 
+
     if col2 and text2 then 
 
-    net.WriteString( text2 )
-end 
-    net.Send( receiver )
+	    net.WriteString( text2 )
 
-end
+	end 
+
+	    net.Send( receiver )
+
+	end
 
 
 
