@@ -45,16 +45,16 @@ function LDRP.ConfirmVender(Type,Item,Cost)
 		draw.RoundedBox(6,0,0,ws,WindowSize,LDRP.ColorMod(0,0,0,0))
 		
 		if Type == "buy" then
-			draw.SimpleTextOutlined( "Are you sure you want to buy", "Trebuchet22", 4, hs*.2, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
-			draw.SimpleTextOutlined( "a " .. Item .. " for $" .. Cost, "Trebuchet22", 4, hs*.35, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
+			draw.SimpleTextOutlined( "Are you sure you want to buy", "Trebuchet22", 4, hs*.2, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
+			draw.SimpleTextOutlined( "a " .. Item .. " for $" .. Cost, "Trebuchet22", 4, hs*.35, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
 		elseif Type == "sell" then
 			if CantSell then
-				draw.SimpleTextOutlined( "You don't have any to sell.", "Trebuchet22", ws*.5, WindowSize*.5, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
+				draw.SimpleTextOutlined( "You don't have any to sell.", "Trebuchet22", ws*.5, WindowSize*.5, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
 				return
 			end
 			local am = LocalPlayer().Inventory[Item]
-			draw.SimpleTextOutlined( "Are you sure you want to sell", "Trebuchet22", 4, hs*.2, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
-			draw.SimpleTextOutlined( am .. " " .. Item .. " for $" .. Cost*am, "Trebuchet22", 4, hs*.35, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
+			draw.SimpleTextOutlined( "Are you sure you want to sell", "Trebuchet22", 4, hs*.2, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
+			draw.SimpleTextOutlined( am .. " " .. Item .. " for $" .. Cost*am, "Trebuchet22", 4, hs*.35, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
 		end
 		
 	end
@@ -68,7 +68,7 @@ function LDRP.ConfirmVender(Type,Item,Cost)
 	local YesButton = vgui.Create("DButton",ConfirmWindow)
 	YesButton:SetPos(4,hs*.5)
 	YesButton:SetSize(ws-8,hs*.22)
-	YesButton:SetText("Yes")
+	YesButton:SetText("Sure!")
 	YesButton.DoClick = function()
 		RunConsoleCommand("__shp",Type,item)
 		ConfirmWindow:MoveTo(w,h*.5-(hs*.5),.2,.2)
@@ -102,13 +102,13 @@ function LDRP_SH.OpenStoreMenu(name,model,saying,selltable,buytable)
 		draw.RoundedBox(8,0,0,w,h,LDRP.ColorMod(20,20,20,10))
 		draw.RoundedBox(6,2,36,w-4,h-528,LDRP.ColorMod(30,30,30,30))
 		draw.SimpleTextOutlined( name,"HUDNumber", w*.5, h*.03, Color(170,170,170,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
-		draw.SimpleTextOutlined( saying,"Trebuchet24", w*.5+38, h-528, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
+		draw.SimpleTextOutlined( saying,"Trebuchet24", w*.5+38, h-528, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
 		
 		draw.RoundedBox(6,2,h*.184,w-4,h-114,LDRP.ColorMod(30,30,30,30))
 		
-		draw.SimpleTextOutlined( "Selling","HUDNumber", w*.01, h*.23, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
+		draw.SimpleTextOutlined( "Selling","HUDNumber", w*.01, h*.23, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
 		
-		draw.SimpleTextOutlined( "Buying","HUDNumber", w*.01, h*.62, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
+		draw.SimpleTextOutlined( "Buying","HUDNumber", w*.01, h*.62, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 2, Color(0,0,0,255) )
 		
 	end
 	
@@ -253,7 +253,7 @@ function LDRP.BankMenu(ply,cmd,args)
 	local BankLabel = vgui.Create("DLabel",MainBankBackground)
 	BankLabel:SetText("Bank")
 	BankLabel:SetFont("HUDNumber")
-	BankLabel:SetColor(Color(255,255,255,255))
+	BankLabel:SetColor(color_white)
 	BankLabel:SetPos(MainBankBackground:GetWide()*.45,-4)
 	BankLabel:SizeToContents()
 	
@@ -308,7 +308,7 @@ function LDRP.BankMenu(ply,cmd,args)
 	local InvLabel = vgui.Create("DLabel",MainBankBackground)
 	InvLabel:SetText("Inventory")
 	InvLabel:SetFont("HUDNumber")
-	InvLabel:SetColor(Color(255,255,255,255))
+	InvLabel:SetColor(color_white)
 	InvLabel:SetPos(MainBankBackground:GetWide()*.39,224)
 	InvLabel:SizeToContents()
 	
