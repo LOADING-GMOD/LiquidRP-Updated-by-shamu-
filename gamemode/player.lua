@@ -372,6 +372,7 @@ function meta:CanAfford(amount)
 	print(self:getDarkRPVar("money"))
 
 	return math.floor(amount) >= 0 and self:getDarkRPVar("money") - math.floor(amount) >= 0
+	
 end
 
 function meta:AddMoney(amount)

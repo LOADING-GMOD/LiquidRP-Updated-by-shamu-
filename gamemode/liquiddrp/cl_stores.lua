@@ -3,6 +3,25 @@ local function MC(num)
 	return math.Clamp(num,1,255)
 end
 
+
+surface.CreateFont( "ShamuEntryFont", {
+	font = "coolvetica", --  Use the font-name which is shown to you by your operating system Font Viewer, not the file name
+	extended = false,
+	size = 26,
+	weight = 500,
+	blursize = 0,
+	scanlines = 0,
+	antialias = true,
+	underline = false,
+	italic = false,
+	strikeout = false,
+	symbol = false,
+	rotary = false,
+	shadow = false,
+	additive = false,
+	outline = false,
+} )
+
 function LDRP.ColorMod(r,g,b,a)
 	local Clrs = LDRP_Theme[LDRP_Theme.CurrentSkin].BGColor
 	return Color(MC(Clrs.r+r),MC(Clrs.g+g),MC(Clrs.b+b),MC(Clrs.a+a))
@@ -360,7 +379,7 @@ function LDRP.BankMenu(ply,cmd,args)
 	MoneyLabel:SetText("                                   ")
 	MoneyLabel:SetFont("HUDNumber")
 	function MoneyLabel:Paint()
-		draw.SimpleTextOutlined("Balance: $" .. LocalPlayer().Bank["curcash"], "HUDNumber", 0, ScrH()*.02, Color(0,255,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER, 1, Color(0,0,0) )
+		draw.SimpleText("Balance: $" .. LocalPlayer().Bank["curcash"], "HUDNumber", 0, ScrH()*.015, Color(0,255,0), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER )
 	end
 	MoneyLabel:SizeToContents()
 	
@@ -370,14 +389,17 @@ function LDRP.BankMenu(ply,cmd,args)
 	InputCash:SetHeight(35)
 	InputCash:SetEnterAllowed(false)
 	InputCash:SetText("Input money amount here")
+	InputCash:SetNumeric( true )
 	local HasClicked
 	InputCash.OnMousePressed = function()
-		if !HasClicked then InputCash:SetText("") HasClicked = true end
+
+		if not HasClicked then InputCash:SetText("") HasClicked = true end
+
 	end
 
 	function InputCash:Paint()
 		draw.RoundedBox(6,0,0,self:GetWide(),self:GetTall(),LDRP.ColorMod(70,70,70,20))
-		self:DrawTextEntryText(Color(255, 255, 255), Color(0, 255, 0), Color(255, 255, 255))
+		draw.SimpleText( self:GetValue() , "ShamuEntryFont" , 155.5 , 3.5 , color_white , TEXT_ALIGN_CENTER )
 	end
 	
 	MainBankBackground:NewButton("Deposit Money",4,522,592,20,function() local am = tonumber(InputCash:GetValue()) if am and am > 0 then RunConsoleCommand("_bnk","money",-am) else LocalPlayer():ChatPrint("Please enter a valid number.") end end)
@@ -385,4 +407,5 @@ function LDRP.BankMenu(ply,cmd,args)
 	MainBankBackground:NewButton("Close Bank",4,574,592,20,function() MainBankBackground:Close() end)
 	
 end
+
 usermessage.Hook("SendBankMenu",LDRP.BankMenu)
