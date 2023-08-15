@@ -115,7 +115,7 @@ function LDRP.SetNPCPos(ply,cmd,args)
 
 	if args[2] != nil then 
 
-        Type = args[1] .. " " .. args[2] // fixes a bug that has been present for well over 10 years now lol, only the first arg would be considered so you couldnt spawn npcs with spaces in their name :/
+        Type = args[1] .. " " .. args[2] // fixe's a bug that has been present for well over 10 years now lol, only the first arg would be considered so you couldnt spawn npcs with spaces in their name :/
  
     end  
 
