@@ -158,7 +158,7 @@ function LDRP.RulesMenu()
 	Window.Paint = function()
 		draw.RoundedBox( 8, 0, 0, w, h, LDRP.ColorMod(-40,-40,-40,60) )
 		if Loading then
-			draw.SimpleTextOutlined("Loading Webpage", "HUDNumber", w*.5, h*.5, Color(255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0) )
+			draw.SimpleTextOutlined("Loading Webpage", "HUDNumber", w*.5, h*.5, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, Color(0,0,0) )
 		end
 	end
 	Window:SetTitle("Rules")
@@ -388,19 +388,27 @@ function LDRP.BankMenu(ply,cmd,args)
 	InputCash:SetWidth(314)
 	InputCash:SetHeight(35)
 	InputCash:SetEnterAllowed(false)
-	InputCash:SetText("Input money amount here")
 	InputCash:SetNumeric( true )
 	local HasClicked
 	InputCash.OnMousePressed = function()
 
-		if not HasClicked then InputCash:SetText("") HasClicked = true end
+		if not HasClicked then InputCash:SetText("0") HasClicked = true end
 
 	end
 
 	function InputCash:Paint()
 		draw.RoundedBox(6,0,0,self:GetWide(),self:GetTall(),LDRP.ColorMod(70,70,70,20))
-		draw.SimpleText( self:GetValue() , "ShamuEntryFont" , 155.5 , 3.5 , color_white , TEXT_ALIGN_CENTER )
-	end
+
+		if  string.len( self:GetValue() ) > 0 then 
+
+			draw.SimpleText( PrettyFormatNumber( util.StringToType( InputCash:GetValue() , "int" ) ), "ShamuEntryFont" , 155.5 , 3.5 , color_white , TEXT_ALIGN_CENTER )
+   
+        elseif string.len( self:GetValue() ) <= 0 then 
+
+            draw.SimpleText( "Input Cash Here" , "ShamuEntryFont" , 155.5 , 3.5 , color_white , TEXT_ALIGN_CENTER )
+        
+        end 
+	 end
 	
 	MainBankBackground:NewButton("Deposit Money",4,522,592,20,function() local am = tonumber(InputCash:GetValue()) if am and am > 0 then RunConsoleCommand("_bnk","money",-am) else LocalPlayer():ChatPrint("Please enter a valid number.") end end)
 	MainBankBackground:NewButton("Withdraw Money",4,548,592,20,function() local am = tonumber(InputCash:GetValue()) if am and am > 0 then RunConsoleCommand("_bnk","money",am) else LocalPlayer():ChatPrint("Please enter a valid number.") end  end)
