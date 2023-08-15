@@ -152,7 +152,9 @@ function LDRP.SetNPCPos(ply,cmd,args)
 		angle = "'"..serializedang.."'"
 	})
 end
-concommand.Add("ldrp_npcpos",LDRP.SetNPCPos)
+
+
+concommand.Add("ldrp_spawn_npc",LDRP.SetNPCPos)
 
 -- First real addition to the release of Liquid DarkRP
 LDRP.SavedTablePos = (file.Exists("ldrp_craftingtable.txt", "DATA") and von.deserialize(file.Read("ldrp_craftingtable.txt", "DATA"))) or {}
