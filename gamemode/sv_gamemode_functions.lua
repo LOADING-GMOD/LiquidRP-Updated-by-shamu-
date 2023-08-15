@@ -34,6 +34,7 @@ function GM:Initialize()
 	self.BaseClass:Initialize()
 end
 
+
 function GM:PlayerSpawnProp(ply, model)
 	if not self.BaseClass:PlayerSpawnProp(ply, model) then return false end
 	if (ply:GetCount("Props") > 30 and !ply:IsVIP()) then

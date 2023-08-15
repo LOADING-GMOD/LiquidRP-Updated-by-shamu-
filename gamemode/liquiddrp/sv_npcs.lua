@@ -1,13 +1,17 @@
 local LDRP = {}
 LDRP.SavedPoses = {} --NPC poses, that is. Key = NPC type, then v.pos, and v.ang.
 
-LDRP_SH.ShopPoses = {}
+LDRP_SH.ShopPoses = LDRP_SH.ShopPoses or {}
 
 function LDRP_SH.CreateNPC(name,pos,ang)
 	if LDRP_SH.ShopPoses[name] or !LDRP_SH.AllNPCs[name] then return end
+
 	if !LDRP_SH.UsePaycheckLady and name == "Paycheck Lady" then
+
 		GAMEMODE:WriteOut("Not spawning Paycheck Lady: UsePaycheckLady is false.", Severity.Info)
+
 		return
+
 	end
 	
 	local NewNPC = ents.Create("shop_base")
@@ -15,6 +19,7 @@ function LDRP_SH.CreateNPC(name,pos,ang)
 	NewNPC.ShopType = name
 	NewNPC:SetModel(LDRP_SH.AllNPCs[name].mdl)
 	LDRP_SH.ShopPoses[name] = NewNPC:GetPos()
+
 
 	if ang then
 		NewNPC:SetAngles(ang)
@@ -291,7 +296,9 @@ end
 concommand.Add("_dd",LDRP.DrugDealerCMD)
 
 function LDRP.BailNPC(ply,cmd,args)
+
 	if !LDRP_SH.ShopPoses["Bail NPC"] or ply:GetPos():Distance(LDRP_SH.ShopPoses["Bail NPC"]) > 300 then return end
+
 	if ply:CanAfford(500) then
 		if !RPArrestedPlayers[ply:SteamID()] then
 			ply:LiquidChat("BAIL NPC", Color(0,0,200), "You're not even arrested!")
@@ -344,7 +351,7 @@ end
 concommand.Add("__str",LDRP.GeneralStore)
 
 
-function LDRP.StoreCMD(ply,cmd,args)
+function LDRP.StoreCMD( ply,cmd,args )
 	local Type = args[1]
 	local Item = args[2]
 	local ItemTbl = (Type == "sell" and LDRP_SH.AllStores.Buys[Item]) or (Type == "buy" and LDRP_SH.AllStores.Sells[Item])

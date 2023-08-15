@@ -1,3 +1,7 @@
+
+
+
+
 local ChatFont = CreateClientConVar("pchat_font", "ChatFont", true, false)
 local ShouldCheck = CreateConVar("pchat_openurls", "1", FCVAR_ARCHIVE, "Parse URLs that are sent in chat?")
 local OnlyPictures = CreateConVar("pchat_onlypictures", "0", FCVAR_ARCHIVE, "Only parse images?")
@@ -8,11 +12,12 @@ local Patterns = {"http://([%w%p]+)(....?)(%s*)", "http://([%w%p]+)%.(....?)(%s*
 local Pictures = {["png"] = true, ["jpg"] = true, ["bmp"] = true, ["gif"] = true}
 local Fonts = {"DebugFixed", "DebugFixedSmall", "Default", "Marlett", "Trebuchet18", "Trebuchet24", "HudHintTextLarge", "HudHintTextSmall", "CenterPrintText", "HudSelectionText", "CloseCaption_Normal", "CloseCaption_Bold", "CloseCaption_BoldItalic", "ChatFont", "TargetID", "TargetIDSmall", "BudgetLabel", "DermaDefault", "DermaDefaultBold", "DermaLarge", "ScoreboardDefault", "ScoreboardDefaultTitle", "GModToolSubtitle", "GModToolHelp", "GModWorldtip"}
 
+/* FUCK THIS STUPID FUCKING CHATBOX FUCK YOU JACKOOL FOR MAKING THIS PIECE OF SHIT IVE BEEN DEBUGGING IT FOR 10 HOURS!!!! ITS JUST BETTER TO KILL IT WITH FIRE 
 local ScreenScale = function(Num, IsX)
 	local Num = Num*((IsX and ScrW() or ScrH()) / (IsX and 640 or 480))
 	return Num
 end
-	
+
 local DoShit = function()
 	local ChatBox = vgui.Create("EditablePanel")
 	ChatBox:SetPos(ScreenScale(10, true), ScreenScale(290, false))
@@ -427,6 +432,8 @@ local DoShit = function()
 	local ChatBoxWidth = ChatBox:GetWide() - 8 - ScreenScale(15, true)
 	local ShouldPrint = true
 	local PrintColor = chat.AddText
+
+    local RemoveOldText = chat.AddText
 	function chat.AddText(...)
 		local CurColor = Color(161, 255, 255)
 		local X, Y = 2, 2
@@ -651,7 +658,11 @@ local DoShit = function()
 		if(OnlyPictures:GetBool()) and (Object == "URL") then return end
 		chat.AddText(Player, Color(255, 255, 255), " has sent the "..Object..": ", Color(34, 148, 233), "\r"..URL.."\r")
 		return true
+
+       
+
 	end
+
 	hook.Add("OnPlayerChat", "PChat.OnPlayerChat", CheckForLinks)
 	
 	ChatBox.ComeBack = function(self)
@@ -716,6 +727,7 @@ end
 DoShit()
 
 --ply *should* be valid almost every time 
+
 local function AddToChat(msg)
 	local col1 = Color(msg:ReadShort(), msg:ReadShort(), msg:ReadShort())
 
@@ -738,7 +750,7 @@ local function AddToChat(msg)
 	end
 	chat.PlaySound()
 end
-usermessage.Hook("DarkRP_Chat", AddToChat)
+//usermessage.Hook("DarkRP_Chat", AddToChat)
 
 hook.Add( "HUDShouldDraw", "Disable old CB", function( hud )
 	if hud == "CHudChat" then

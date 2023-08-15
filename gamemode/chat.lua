@@ -1,7 +1,7 @@
 local ChatCommands = {}
 
 
-function AddChatCommand(cmd, callback, delay)
+function AddChatCommand(cmd, callback, delay) // only used to prevent errors while i remove this bullshit , JUST USE FUCKING PLAYERSAY PLEASE 
 
 	local detour = function(ply, arg, ...)
 		if ply.DarkRPUnInitialized then
@@ -18,6 +18,17 @@ function AddChatCommand(cmd, callback, delay)
 		delay = delay
 	}
 end
+
+
+
+
+
+
+
+
+
+
+
 
 function removeChatCommand(cmd)
 	ChatCommands[string.lower(cmd)] = nil
@@ -64,11 +75,34 @@ local function RP_ActualDoSay(ply, text, callback)
 	return "" 
 end
 
+
 local otherhooks = {}
 
 --Where the chat magic begins (server side, at least).
+
+
+
+
+/*------------[NO DARKRP COMMANDS]-----------
+*  The below function overwrites the playe- *
+* r say hook so that darkrp can use AddChat *
+*	Command() im gonna rewrite it at some   *
+*   point but for now these are disabled    *
+*                                           *
+*                                           *
+*                               
+*
+-------------------------------------------*/   
+
+
+
+
+
+
+
+
 function GM:PlayerSay(ply, text, isTeamChat) -- We will make the old hooks run AFTER DarkRP's playersay has been run.
-	local text2 = (not isTeamChat and "" or "/g ") .. text
+	local text2 = (not isTeamChat and "" or "/g " or "//") .. text
 	local callback
 	text2, callback, DoSayFunc = RP_PlayerChat(ply, text2)
 	if tostring(text2) == " " then text2, callback = callback, text2 end
@@ -83,10 +117,22 @@ function GM:PlayerSay(ply, text, isTeamChat) -- We will make the old hooks run A
 	
 	if DoSayFunc then DoSayFunc(text2) return "" end
 	text2 = RP_ActualDoSay(ply, text2, callback) 
-	return false
+
+	//if string.StartWith( text , "/" ) and not string.StartWith( text , "//" ) then 
+
+
+	      return false 
+
+     //  else
+
+         // return true 
+
+     //end 
 end
 
 --Remove all PlayerSay hooks, they all interfere with DarkRP's PlayerSay
+
+
 hook.Add("InitPostEntity", "DarkRP_ChatCommands", function()
 	if not hook.GetTable().PlayerSay then return end
 	for k,v in pairs(hook.GetTable().PlayerSay) do
@@ -100,6 +146,11 @@ hook.Add("InitPostEntity", "DarkRP_ChatCommands", function()
 	end
 end)
 
+
+
+
+
+
 function TalkToRange(ply, PlayerName, Message, size)
 	local ents = ents.FindInSphere(ply:EyePos(), size)
 	local col = team.GetColor(ply:Team())
@@ -111,21 +162,23 @@ function TalkToRange(ply, PlayerName, Message, size)
 		end
 	end
 	
-	umsg.Start("DarkRP_Chat", filter)
-		umsg.Short(col.r)
-		umsg.Short(col.g)
-		umsg.Short(col.b)
-		umsg.String(PlayerName)
-		umsg.Entity(ply)
-		umsg.Short(255)
-		umsg.Short(255)
-		umsg.Short(255)
-		umsg.String(Message)
-	umsg.End()
+
+
+	net.Start( "DarkRP_Chat" )
+    net.WriteString( PlayerName )
+    net.WriteEntity( ply )
+    net.WriteString( Message )
+    net.Send(filter)
+
+
+
 end
 
 function GM:TalkToPerson(receiver, col1, text1, col2, text2, sender)
-	umsg.Start("DarkRP_Chat", receiver)
+
+
+
+        /*umsg.Start("DarkRP_Chat", receiver)
 		umsg.Short(col1.r)
 		umsg.Short(col1.g)
 		umsg.Short(col1.b)
@@ -140,7 +193,30 @@ function GM:TalkToPerson(receiver, col1, text1, col2, text2, sender)
 			umsg.String(text2)
 		end
 	umsg.End()
+
+	*/
+
+
+	net.Start( "DarkRP_BroadcastChat" )
+
+
+    net.WriteString( text1 ) 
+
+    if sender then
+
+    	net.WriteEntity(sender)
+
+    end 
+    if col2 and text2 then 
+
+    net.WriteString( text2 )
+end 
+    net.Send( receiver )
+
 end
+
+
+
 
 function ConCommand(ply, _, args)
 	if not args[1] then for k,v in pairs(ChatCommands) do print(k) end return end

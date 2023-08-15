@@ -283,10 +283,17 @@ function LDRP.HUDPaint()
 		draw.RoundedBox(6,10.08,28.8,144,35.1+CurHeight, SKIN.colTab)
 		
 		local CurY = 40.5
+
+
+        local LPMoney = LP:getDarkRPVar("money") or 0 
+
+		draw.SimpleTextOutlined( "Cash" .. " " .. PrettyFormatCash(LPMoney	) , "Trebuchet22", 79.2, CurY, Color( 0 , 255 , 0 ) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255) )
+
+
 		for k,v in pairs(DisplayWhat) do
 			local display = LP:getDarkRPVar( v ) or "Loading"
 			
-			local MoneyCheck = tonumber(display)
+		/*	local MoneyCheck = tonumber(display)
 			local Clr = Color(0,255,0,255)
 			if MoneyCheck then
 				if MoneyCheck >= 1000000 then
@@ -298,7 +305,12 @@ function LDRP.HUDPaint()
 				end
 				display = "$" .. MoneyCheck
 			end
-			draw.SimpleTextOutlined( k .. ": " .. display, "Trebuchet22", 79.2, CurY, Clr, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255) )
+			
+
+*/
+
+			local Clr = Color( 0 , 255 , 0 , 255 )
+
 			CurY = CurY+18
 		end
 		
