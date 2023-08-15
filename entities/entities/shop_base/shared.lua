@@ -7,6 +7,8 @@ ENT.Author			= "Jackool"
 function ENT:OnRemove() 
 
 end
+
+
 function ENT:PhysicsCollide( data, physobj ) 
 
 end 

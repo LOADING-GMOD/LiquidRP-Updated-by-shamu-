@@ -5,10 +5,14 @@ local LDRP = {}
 -----------------------------------------------------------------------------]]
 function LDRP.RepeatTut(ply, cmd, args)
 	local tutLady = LDRP_SH.ShopPoses["Tutorial Lady"]
-	if !tutLady or ply:GetPos():Distance( tutLady ) > 300 then
-		print("Not running")
-		return
-	end
+
+	//if !tutLady or ply:GetPos():Distance( tutLady ) > 800 then
+
+	//	print("Not running") LDRP_SH.ShopPoses returns nil need to look into that 
+
+		//return
+	//end
+
 	ply:DoTutorial("start")
 end
 concommand.Add("_repetut",LDRP.RepeatTut)
@@ -27,20 +31,20 @@ local meta = FindMetaTable( "Player" )
 
 util.AddNetworkString( "StartTutorial" )
 function meta:DoTutorial(Type)
-	if !LDRP_SH.ShowTutorial then return end
+	if not LDRP_SH.ShowTutorial then return end
 	local ply = self
 	if Type == "start" then
 		ply.InTut = true
 		ply:Spectate(OBS_MODE_ROAMING)
 		ply:StripWeapons()
-		ply:SetColor(255,255,255,0)
+		ply:SetColor( Color( 255 , 255 , 255 , 255 ) )
 		ply:Freeze(true)
 		
 		net.Start( "StartTutorial" )
 		net.Send( self )
 	elseif Type == "done" then
 		ply:Spawn()
-		ply:SetColor(255,255,255,255)
+		ply:SetColor( Color( 255 , 255 , 255 , 255 ) )
 		ply:Freeze(false)
 	end
 end
