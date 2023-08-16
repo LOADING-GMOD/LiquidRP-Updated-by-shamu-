@@ -287,7 +287,7 @@ function LDRP.HUDPaint()
 
         local LPMoney = LP:getDarkRPVar("money") or 0 
 
-		draw.SimpleTextOutlined( "Cash" .. " " .. PrettyFormatCash(LPMoney	) , "Trebuchet22", 79.2, CurY, Color( 0 , 255 , 0 ) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255) )
+		draw.SimpleTextOutlined( "Cash" .. " " .. PrettyFormatCash( LPMoney	) , "Trebuchet22", 79.2, CurY, Color( 0 , 255 , 0 ) , TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 1, Color(0,0,0,255) )
 
 
 		for k,v in pairs(DisplayWhat) do

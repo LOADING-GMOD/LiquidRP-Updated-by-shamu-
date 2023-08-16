@@ -471,7 +471,7 @@ function GM:PlayerSetModel(ply)
 
 	*/
 
-	      if GAMEMODE.Config.enforceplayermodel then
+	if GAMEMODE.Config.enforceplayermodel then
 
             
            local ChosenModel = ply.rpChosenModel
@@ -494,8 +494,16 @@ function GM:PlayerSetModel(ply)
                  ply:SetModel(ply:getJobTable().model)
               
            end
-        end 
-     end 
+ 
+
+     else
+
+        local cl_playermodel = ply:GetInfo( "cl_playermodel" )
+        local modelname = player_manager.TranslatePlayerModel( cl_playermodel )
+        ply:SetModel( modelname )
+
+   end 
+end 
 
 function GM:PlayerInitialSpawn(ply)
 	self.BaseClass:PlayerInitialSpawn(ply)

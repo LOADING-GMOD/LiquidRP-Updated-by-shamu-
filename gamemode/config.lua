@@ -249,6 +249,7 @@ GM.Config.walkspeed						= 160
 
 GM.Config.currency = "$"
 GM.Config.chatCommandPrefix = "/"
+GM.Config.currencyThousandSeparator = ","
 
 -- The list of weapons that players are not allowed to drop. Items set to true are not allowed to be dropped
 GM.Config.DisallowDrop = {
