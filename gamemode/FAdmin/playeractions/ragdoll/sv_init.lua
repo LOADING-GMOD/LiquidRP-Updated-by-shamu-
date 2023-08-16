@@ -221,6 +221,7 @@ local function Ragdoll(ply, cmd, args)
 				target:StripWeapons()
 				target:Spectate(OBS_MODE_CHASE)
 				target:SpectateEntity(Ragdoll)
+				target:FAdmin_SetGlobal("fadmin_ragdolled", true )
 
 				target.FAdminRagdoll = Ragdoll
 
@@ -254,7 +255,7 @@ local function Ragdoll(ply, cmd, args)
 
 			end
 
-			if time ~= 0 then
+			if time ~= 0 and target:FAdmin_GetGlobal("fadmin_ragdolled") == true and RagdollType == "ragdoll"  then
 				timer.Simple(time, function()
 					if IsValid(target) and IsValid(target.FAdminRagdoll) then
 						target:SetPos(target.FAdminRagdoll:GetPos())
