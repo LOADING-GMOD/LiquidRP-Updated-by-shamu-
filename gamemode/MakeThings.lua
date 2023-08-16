@@ -170,3 +170,6 @@ function GM:AddAmmoType(ammoType, name, model, price, amountGiven, customCheck)
 		customCheck = customCheck
 	})
 end
+
+
+

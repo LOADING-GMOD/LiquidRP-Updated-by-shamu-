@@ -377,8 +377,8 @@ LDRP_SH.CarrotBuyPrice = 28
 LDRP_SH.CarrotSeedPrice = 50
 
 LDRP.AddNPC("Rules","models/humans/group01/male_06.mdl",nil,"Would you like to read the rules?",{
-	["Yes please"] = function() RunConsoleCommand("rules") end,
-	["Nah I'd rather minge"] = function() end
+	["Sure!"] = function() RunConsoleCommand("rules") end,
+	["Kys"] = function() end
 })
 
 function LDRP.AddCustomNPC(name,mdl,usermsg)
@@ -468,7 +468,7 @@ AddAdminControl("Cleanup Disconnected Players' Props","Cleans up the props of pe
 
 LDRP.AllVIPs = {}
 if SERVER then
-	--require("von") --Updating all references from GLon to vON (could be messy)
+	--require("von") --Updating all references from GLon to vON (could be messy) 
 	LDRP.AllVIPs = (file.Exists("ldrp_vips.txt", "DATA") and von.deserialize(file.Read("ldrp_vips.txt", "DATA"))) or {}
 	
 	concommand.Add("ldrp_addvip",function(ply,cmd,args)

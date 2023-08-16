@@ -289,6 +289,8 @@ function meta:ChangeTeam(t, force)
 		UnLockdown(self)
 	end
 	self:UpdateJob(TEAM.name)
+
+
 	DB.StoreSalary(self, TEAM.salary)
 	NotifyAll(0, 4, string.format(LANGUAGE.job_has_become, self:Nick(), TEAM.name))
 	if self.DarkRPVars.HasGunlicense then

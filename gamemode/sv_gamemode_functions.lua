@@ -429,6 +429,10 @@ end
 concommand.Add("_rp_ChosenModel", SetPlayerModel)
 
 function GM:PlayerSetModel(ply)
+	
+
+
+/*
 	local EndModel = ""
 	if GAMEMODE.Config.enforceplayermodel then
 
@@ -463,7 +467,35 @@ function GM:PlayerSetModel(ply)
         ply:SetModel( modelname )
         
 	end
-end
+
+
+	*/
+
+	      if GAMEMODE.Config.enforceplayermodel then
+
+            
+           local ChosenModel = ply.rpChosenModel
+ 
+
+           if type( ply:getJobTable().model ) == "table" and ChosenModel != nil then 
+
+	        	 ply:SetModel( ChosenModel )
+
+	    
+
+	       elseif type( ply:getJobTable().model ) == "table" and ChosenModel == nil then 
+
+                 ply:SetModel(ply:getJobTable().model[ math.random( 1 , table.Count(ply:getJobTable().model ) ) ] )
+
+	 
+
+           elseif type( ply:getJobTable().model ) != "table" then 
+
+                 ply:SetModel(ply:getJobTable().model)
+              
+           end
+        end 
+     end 
 
 function GM:PlayerInitialSpawn(ply)
 	self.BaseClass:PlayerInitialSpawn(ply)
