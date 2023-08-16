@@ -154,11 +154,11 @@ function meta:GiveLevel(skill,am)
 		local cur = self.Character.Skills[skill]
 		self.Character.Skills[skill].lvl = cur.lvl+am
 		self.Character.Skills[skill].exp = 0
-		umsg.Start("SendSkill",self)
-			umsg.String(skill)
-			umsg.Float(0)
-			umsg.Float(cur.lvl)
-		umsg.End()
+		net.Start("SendSkill")
+			net.WriteString(skill)
+			net.WriteFloat(0)
+			net.WriteFloat(cur.lvl)
+		net.Send(self)
 		if LDRP_SH.AllSkills[skill].LvlFunction then
 			LDRP_SH.AllSkills[skill].OnLevelUp(self)
 		end

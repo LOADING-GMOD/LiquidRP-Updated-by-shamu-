@@ -186,9 +186,11 @@ end
 usermessage.Hook("SendBItem",LDRP.SendItemInfo)
 
 function LDRP.SendMaxWeight(um)
-	LocalPlayer().MaxBWeight = um:ReadFloat()
+	LocalPlayer().MaxBWeight = net.ReadFloat()
 end
-usermessage.Hook("SendBWeight",LDRP.SendMaxWeight)
+//usermessage.Hook("SendBWeight",LDRP.SendMaxWeight)
+
+  net.Receive( "SendBWeight" , LDRP.SendMaxWeight )
 
 function LDRP.OpenItemOptions(item,Type,nicename)
 	local TypeTbl = (Type == "bank" and LocalPlayer().Inventory) or LocalPlayer().Bank

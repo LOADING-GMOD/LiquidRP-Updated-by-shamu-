@@ -701,8 +701,12 @@ end
 local LDRP = {}
 
 
+hook.Add("InitPostEntity" , "LoadsImportantStuff" , function()
 
-
+		net.Start( "StartClientTables" )
+		net.SendToServer()
+		
+end)
 
 net.Receive( "ReceiveClientTables" , function()
 
@@ -724,17 +728,27 @@ end
 usermessage.Hook("SendItem",LDRP.SendItemInfo)
 
 function LDRP.SendMaxWeight(um)
-	LocalPlayer().MaxWeight = um:ReadFloat()
+	LocalPlayer().MaxWeight = net.ReadFloat()
 end
-usermessage.Hook("SendWeight",LDRP.SendMaxWeight)
+
+
+//usermessage.Hook("SendWeight",LDRP.SendMaxWeight)
+
+
+net.Receive( "SendWeight" , LDRP.SendMaxWeight )
+
+
 
 function LDRP.ReceiveSkill(um)
-	local Skill = um:ReadString()
+	local Skill = net.ReadString()
 	LocalPlayer().Skills[Skill] = {}
-	LocalPlayer().Skills[Skill].exp = um:ReadFloat()
-	LocalPlayer().Skills[Skill].lvl = um:ReadFloat()
+	LocalPlayer().Skills[Skill].exp = net.ReadFloat()
+	LocalPlayer().Skills[Skill].lvl = net.ReadFloat()
 end
-usermessage.Hook("SendSkill",LDRP.ReceiveSkill)
+
+
+net.Receive("SendSkill" , LDRP.ReceiveSkill )
+//usermessage.Hook("SendSkill",LDRP.ReceiveSkill)
 
 function LDRP.ReceiveEXP( len )
 	local skill = net.ReadString()

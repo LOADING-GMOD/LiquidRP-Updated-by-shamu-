@@ -7,6 +7,23 @@ function LDRP.AutoSaveAll()
 		v:SavePlayer()
 	end
 end
+
+
+/*-----[NEW LDRP NETS]-------
+*                           *
+*                           *
+---------------------------*/
+
+util.AddNetworkString("SendWeight")
+util.AddNetworkString("SendBWeight")
+util.AddNetworkString("SendSkill")
+
+
+
+
+
+
+
 timer.Create("AutoSaveAllPlayers", LDRP.AutoSaveMins*60, 0, LDRP.AutoSaveAll)
 
 local function SavePlayersBeforeShutDown()
@@ -80,12 +97,15 @@ function LDRP.InitializeSelf(ply,cmd,args)
 	
 	timer.Simple(3,function()
 		if !ply:IsValid() then return end
-		umsg.Start("SendWeight",ply)
-			umsg.Float(ply.Character.InvWeight.allowed)
-		umsg.End()
-		umsg.Start("SendBWeight",ply)
-			umsg.Float(ply.Character.BankWeight.allowed)
-		umsg.End()
+
+		net.Start("SendWeight")
+        net.WriteFloat(ply.Character.InvWeight.allowed)
+		net.Send(ply)
+
+		net.Start("SendBWeight")
+	    net.WriteFloat(ply.Character.BankWeight.allowed)
+		net.Send(ply)
+		
 	end)
 	timer.Simple(2,function()
 		if !ply:IsValid() then return end
@@ -107,14 +127,18 @@ function LDRP.InitializeSelf(ply,cmd,args)
 	timer.Simple(.7,function()
 		if !ply:IsValid() then return end
 		for k,v in pairs(ply.Character.Skills) do
-			umsg.Start("SendSkill",ply)
-				umsg.String(k)
-				umsg.Float(v.exp)
-				umsg.Float(v.lvl)
-			umsg.End()
+
+			net.Start("SendSkill")
+			net.WriteString(k)
+			net.WriteFloat(v.exp)
+			net.WriteFloat(v.lvl)
+			net.Send(ply)
+
 		end
 	end)
+
 	ply:SavePlayer()
+
 end
 concommand.Add("_initme",LDRP.InitializeSelf)
 
