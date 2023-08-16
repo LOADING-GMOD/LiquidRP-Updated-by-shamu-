@@ -292,9 +292,9 @@ LDRP.AddSkill("Stamina","More weight in inventory and more fist damage","models/
 		local NewWeight = ply.Character.InvWeight.allowed+3
 		ply.Character.InvWeight.allowed = NewWeight
 		ply:SavePlayer("Inventory")
-		umsg.Start("SendWeight",ply)
-			umsg.Float(NewWeight)
-		umsg.End()
+		net.Start("SendWeight")
+		net.WriteFloat(NewWeight)
+		net.Send(ply)
 	end
 )
 
