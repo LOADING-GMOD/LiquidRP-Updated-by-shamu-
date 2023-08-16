@@ -485,7 +485,7 @@ function GM:PlayerSetModel(ply)
 
 	       elseif type( ply:getJobTable().model ) == "table" and ChosenModel == nil then 
 
-                 ply:SetModel(ply:getJobTable().model[ math.random( 1 , table.Count(ply:getJobTable().model ) ) ] )
+                 ply:SetModel(ply:getJobTable().model[ math.random( 1 , table.Count(ply:getJobTable().model ) ) ] ) // for initial spawn if you wont have a pref model so we will go ahead and pick a random one
 
 	 
 
