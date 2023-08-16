@@ -72,8 +72,8 @@ local function JobHelp()
 
 	for k,v in pairs(Helps) do
 		if LocalPlayer().DarkRPVars["help"..v] then
-			draw.RoundedBox(10, ScrW()-594, 10, 590, 194, Color(67, 202, 211, 200))
-			draw.RoundedBox(10, ScrW()-590, 12, 586, 190, Color(67, 140, 211, 170))
+			draw.RoundedBox(10, ScrW()-594, 10, 590, 194, Color(85, 90, 90, 200))
+			draw.RoundedBox(10, ScrW()-590, 12, 586, 190, Color(121, 121, 121, 170))
 			draw.RoundedBox(10, ScrW()-590, 12, 586, 20, Color(67, 100, 211, 170))
 			draw.DrawText(v.." Help", "ScoreboardText", ScrW()-556, 12, Color(255,0,0,255),0)
 			draw.DrawText(string.format(LANGUAGE[v:lower().."help"], GAMEMODE.Config.jailtimer), "ScoreboardText", ScrW()-556, 35, Color(255,255,255,255),0)
@@ -92,17 +92,17 @@ local function Agenda()
 		end
 	end
 	if DrawAgenda then
-		draw.RoundedBox(10, ScrW()-464, 10, 460, 110, Color(67, 202, 211, 140))
-		draw.RoundedBox(10, ScrW()-460, 12, 456, 106, Color(67, 140, 211, 100))
-		draw.RoundedBox(10, ScrW()-460, 12, 456, 20, Color(67, 100, 211, 100))
+		draw.RoundedBox(10, ScrW()-462, 10, 460, 110, Color(51, 51, 51, 200))
+		draw.RoundedBox(10, ScrW()-460, 12, 456, 106, Color(121, 121, 121, 170))
+		draw.RoundedBox(10, ScrW()-460, 12, 456, 20, Color(46, 45, 45, 100))
 		
-		draw.DrawText(DrawAgenda.Title, "ScoreboardText", ScrW()-430, 12, Color(255,0,0,255),0)
+		draw.DrawText(DrawAgenda.Title, "ScoreboardText", ScrW()-430, 12, Color(255,255,255),0)
 		
 		local AgendaText = ""
 		for k,v in pairs(team.GetPlayers(AgendaManager)) do
 			AgendaText = AgendaText .. (v.DarkRPVars.agenda or "")
 		end
-		draw.DrawText(string.gsub(string.gsub(AgendaText, "//", "\n"), "\\n", "\n"), "ScoreboardText", ScrW()-430, 35, Color(255,255,255,255),0)
+		draw.DrawText(string.gsub(string.gsub(AgendaText, "//", "\n"), "\\n", "\n"), "ScoreboardText", ScrW()-430, 35, color_white ,0)
 	end
 end
 
