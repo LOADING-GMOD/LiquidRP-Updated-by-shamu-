@@ -506,9 +506,11 @@ function meta:Arrest(time, rejoin)
 		end
 
 		timer.Create(self:UniqueID() .. "jailtimer", time, 1, function() if IsValid(self) then self:Unarrest() end end)
-		umsg.Start("GotArrested", self)
-			umsg.Float(time)
-		umsg.End()
+
+			   net.Start("GotArrested")
+			   net.WriteFloat(time)
+			   net.Send(self)
+
 	end
 end
 

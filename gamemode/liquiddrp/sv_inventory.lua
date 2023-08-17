@@ -202,12 +202,28 @@ concommand.Add("_inven",LDRP.ItemCMD)
 
 function LDRP.HolsterWep(ply,cmd,args)
 	if !ply:Alive() then return "" end
-	if ply:Team() == TEAM_POLICE or ply:Team() == TEAM_CHIEF then
-		ply:LiquidChat("INVENTORY", Color(0,150,200), "Can't holster weapons as cop (because of free gun!)")
-		return ""
-	end
+
+
+
+//	if ply:Team() == TEAM_POLICE or ply:Team() == TEAM_CHIEF then
+	//	ply:LiquidChat("INVENTORY", Color(0,150,200), "Can't holster weapons as cop (because of free gun!)") // someones old ass fix for preventing job wep duping, all this did was 
+                                                   // prevent people from holstering any weapon not just job weapons 
+		//return ""
+	//end
+
+
+
 	
 	local Type = ply:GetActiveWeapon():GetClass()
+
+	if table.HasValue( ply:getJobTable().weapons , Type ) then
+
+		ply:LiquidChat("INVENTORY", Color(0,150,200), "Can't holster a job weapon!") // Prevents a player from duplicating job weapons 
+
+		return ""
+	end 
+
+
 	if Type == ("weapon_real_cs_grenade" or "weapon_real_cs_smoke" or "weapon_real_cs_flash") then
 		ply:LiquidChat("INVENTORY", Color(0,150,200), "Can't holster grenades (duplication glitch)")
 		return ""
