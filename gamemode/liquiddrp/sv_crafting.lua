@@ -1,5 +1,10 @@
 local LDRP = {}
 
+
+
+util.AddNetworkString("SendMeter")
+
+
 LDRP.NiceNames = LDRP_SH.NicerWepNames
 function LDRP.CraftItem(ply,cmd,args)
 	if !ply:GetEyeTrace().Entity or !ply:GetEyeTrace().Entity:IsValid() or ply:GetEyeTrace().Entity:GetClass() != "crafting_table" or ply:Team() != TEAM_CRAFTER then return end
@@ -26,10 +31,10 @@ function LDRP.CraftItem(ply,cmd,args)
 	ply:Freeze(true)
 	ply.Crafting = true
 	
-	umsg.Start("SendMeter",ply)
-		umsg.String("Crafting...")
-		umsg.Float(Table.crafttime)
-	umsg.End()
+			 net.Start("SendMeter")
+			 net.WriteString("Crafting...")
+			 net.WriteFloat(Table.crafttime)
+			 net.Send(ply)
 	
 	timer.Simple(Table.crafttime,function()
 		if !ply:IsValid() then return end

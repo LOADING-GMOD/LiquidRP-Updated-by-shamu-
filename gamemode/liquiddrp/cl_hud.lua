@@ -399,10 +399,13 @@ function LDRP.CreateMeterHUD(text,time)
 	end)
 end
 
-function LDRP.SendMeter(um)
-	LDRP.CreateMeterHUD(um:ReadString(),um:ReadFloat())
+function LDRP.SendMeter()
+	LDRP.CreateMeterHUD( net.ReadString(),net.ReadFloat() )
 end
-usermessage.Hook("SendMeter",LDRP.SendMeter)
+//usermessage.Hook("SendMeter",LDRP.SendMeter)
+
+  net.Receive( "SendMeter" , LDRP.SendMeter )
+
 
 function LDRP_SH.CancelMeter()
 	if timer.Exists("MeterHUDRemove") then

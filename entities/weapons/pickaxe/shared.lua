@@ -79,10 +79,12 @@ function SWEP:PrimaryAttack()
 
 	ply.Picking = true
 	local Picktime = LDRP_SH.PickTime
-	umsg.Start("SendMeter",ply)
-		umsg.String("Mining...")
-		umsg.Float(Picktime)
-	umsg.End()
+
+		      net.Start("SendMeter")
+		      net.WriteString("Mining...")
+		      net.WriteFloat(Picktime)
+		      net.Send(ply)
+
 	timer.Create("Mining_" .. plyid, 1, Picktime, function()
 		if !ent:IsValid() or !ply:IsValid() or ply:GetActiveWeapon() != self.Weapon or ply:GetEyeTrace().Entity != ent or ply:GetEyeTrace().HitPos:Distance(ply:GetPos()) > 100 then
 			umsg.Start("CancelMeter",ply)

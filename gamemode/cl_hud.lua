@@ -132,9 +132,12 @@ end
 
 local Arrested = function() end
 
-usermessage.Hook("GotArrested", function(msg)
+
+//usermessage.Hook("GotArrested", function(msg)
+
+net.Receive( "GotArrested" , function()
 	local StartArrested = CurTime()
-	local ArrestedUntil = msg:ReadFloat()
+	local ArrestedUntil = net.ReadFloat()
 	
 	Arrested = function()
 		if CurTime() - StartArrested <= ArrestedUntil and LocalPlayer().DarkRPVars.Arrested then
@@ -144,6 +147,8 @@ usermessage.Hook("GotArrested", function(msg)
 		end
 	end
 end)
+
+
 
 local AdminTell = function() end
 

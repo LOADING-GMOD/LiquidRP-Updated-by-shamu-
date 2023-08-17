@@ -71,11 +71,12 @@ function SWEP:PrimaryAttack()
 			if not IsValid(wep) then return end
 			wep:EmitSound("weapons/357/357_reload".. tostring(snd[math.random(1, #snd)]) ..".wav", 50, 50)
 		end, self)
-		
-		umsg.Start("SendMeter",self.Owner)
-			umsg.String("Lockpicking...")
-			umsg.Float(Lockpicktime)
-		umsg.End()
+
+			    net.Start("SendMeter")
+			    net.WriteString("Lockpicking...")
+			    net.WriteFloat(Lockpicktime)
+			    net.Send(self.Owner)
+
 	end 
 end
 

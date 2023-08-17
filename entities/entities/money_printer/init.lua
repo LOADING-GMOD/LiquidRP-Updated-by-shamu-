@@ -134,11 +134,12 @@ function ENT:Use(ply,call)
 	if timer.Exists("StealPrinter_" .. EID) then return end
 	
 	if self.dt.owning_ent != ply then
-		umsg.Start("SendMeter",ply)
-			umsg.String("Stealing...")
-			umsg.Float(30)
-		umsg.End()
-		
+
+				net.Start("SendMeter")
+				net.WriteString("Stealing...")
+				net.WriteFloat(30)
+				net.Send(ply)
+
 		local sec = 0
 		timer.Create("StealPrinter_" .. EID,1,0,function()
 			if !ply or !ply:IsValid() then timer.Remove("StealPrinter_" .. EID) return end

@@ -70,10 +70,12 @@ function SWEP:PrimaryAttack()
 		timer.Create("KeyCrackSounds", 1, CrackTime, function()
 			self:EmitSound("buttons/blip2.wav", 50, 50)
 		end)
-		umsg.Start("SendMeter",self.Owner)
-			umsg.String("Cracking...")
-			umsg.Float(CrackTime)
-		umsg.End()
+
+				  net.Start("SendMeter")
+				  net.WriteString("Cracking...")
+				  net.WriteFloat(CrackTime)
+				  net.Send(self.Owner)
+		  
 	end 
 end
 
