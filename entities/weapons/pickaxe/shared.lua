@@ -87,8 +87,10 @@ function SWEP:PrimaryAttack()
 
 	timer.Create("Mining_" .. plyid, 1, Picktime, function()
 		if !ent:IsValid() or !ply:IsValid() or ply:GetActiveWeapon() != self.Weapon or ply:GetEyeTrace().Entity != ent or ply:GetEyeTrace().HitPos:Distance(ply:GetPos()) > 100 then
-			umsg.Start("CancelMeter",ply)
-			umsg.End()
+
+            net.Start("CancelMeter")
+            net.Send(ply)
+
 			if ply:IsValid() then ply.Picking = nil end
 			timer.Remove("Mining_" .. plyid)
 			return

@@ -14,6 +14,7 @@ local function AFKDemote(ply)
 end
 
 local function SetAFK(ply)
+
 	local rpname = ply.DarkRPVars.rpname
 	ply:SetSelfDarkRPVar("AFK", not ply.DarkRPVars.AFK)
 
@@ -25,25 +26,28 @@ local function SetAFK(ply)
 		NotifyAll(0, 5, rpname .. " is now AFK.")
 
 		-- NPC code partially by _Undefined
+
+
 		local npc = ents.Create("npc_citizen")
-		npc:SetPos(ply:GetPos())
-		npc:SetAngles(ply:GetAngles())
-		npc:SetModel(ply:GetModel())
-		npc:Spawn()
-		npc:Activate()
-		npc:SetNPCState(NPC_STATE_ALERT)
-		npc:IdleSound()
-		npc:CapabilitiesAdd(bit.bor(CAP_USE, CAP_OPEN_DOORS))
+			  npc:SetPos(ply:GetPos())
+		   	  npc:SetAngles(ply:GetAngles())
+			  npc:SetModel(ply:GetModel())
+			  npc:Spawn()
+			  npc:Activate()
+			  npc:SetNPCState(NPC_STATE_ALERT)
+			  npc:IdleSound()
+			  npc:CapabilitiesAdd( bit.bor(CAP_USE, CAP_OPEN_DOORS) )
+
 		for _,v in pairs(ents.FindByClass("prop_physics")) do npc:AddEntityRelationship(v, D_LI, 99) end
 		for _,v in pairs(player.GetAll()) do if v == ply then npc:AddEntityRelationship(v, D_FR, 99) npc:SetEnemy(v) end end
 		ply.AFKNpc = npc
 		npc:CPPISetOwner(ply)
 		npc.AFKPly = ply
 		if IsValid(ply:GetActiveWeapon()) then npc:Give(ply:GetActiveWeapon():GetClass()) end
-		npc:SetHealth(ply:Health())
-		npc:SetNoDraw(false)
-		ply:SetNoDraw(true)
-		ply:SetPos(Vector(0,0,-5000))
+			npc:SetHealth(ply:Health())
+			npc:SetNoDraw(false)
+				ply:SetNoDraw(true)
+				ply:SetPos(Vector(0,0,-5000))
 		hook.Add("PlayerDeath", ply:EntIndex().."DRPNPCDeath", function(ply)
 			if not IsValid( ply.AFKNpc ) then hook.Remove("PlayerDeath", ply:EntIndex().."DRPNPCDeath") return end
 			ply:SetEyeAngles(ply.AFKNpc:EyeAngles())

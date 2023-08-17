@@ -3,6 +3,7 @@ local LDRP = {}
 
 
 util.AddNetworkString("SendMeter")
+util.AddNetworkString("CancelMeter")
 
 
 LDRP.NiceNames = LDRP_SH.NicerWepNames

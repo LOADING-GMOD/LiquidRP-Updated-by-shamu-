@@ -144,7 +144,10 @@ function ENT:Use(ply,call)
 		timer.Create("StealPrinter_" .. EID,1,0,function()
 			if !ply or !ply:IsValid() then timer.Remove("StealPrinter_" .. EID) return end
 			if !self or !self:IsValid() or !ply:GetEyeTrace().Entity or !ply:GetEyeTrace().Entity:IsValid() or ply:GetEyeTrace().Entity != self.Entity then
-				umsg.Start("CancelMeter",ply) umsg.End()
+
+				net.Start("CancelMeter")
+				net.Send(ply)
+
 				timer.Remove("StealPrinter_" .. EID)
 				return
 			end

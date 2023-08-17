@@ -105,11 +105,13 @@ function SWEP:Succeed()
 end
 
 function SWEP:Fail()
+
 	self.IsLockPicking = false
 	self:SetWeaponHoldType("normal")
 	timer.Destroy("LockPickSounds")
-	umsg.Start("CancelMeter",ply)
-	umsg.End()
+    net.Start("CancelMeter")
+    net.Send(ply)
+    
 end
 
 function SWEP:Think()

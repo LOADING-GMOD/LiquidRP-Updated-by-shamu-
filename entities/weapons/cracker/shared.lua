@@ -112,11 +112,13 @@ function SWEP:Succeed()
 end
 
 function SWEP:Fail()
+
 	self.IsCracking	= false
 	self:SetWeaponHoldType("normal")
 	timer.Destroy("KeyCrackSounds")
-	umsg.Start("CancelMeter",ply)
-	umsg.End()
+    net.Start("CancelMeter")
+    net.Send(ply)
+    
 end
 
 function SWEP:Think()

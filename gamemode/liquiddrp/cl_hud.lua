@@ -409,11 +409,14 @@ end
 
 function LDRP_SH.CancelMeter()
 	if timer.Exists("MeterHUDRemove") then
+
 		hook.Remove("HUDPaint","Shows a progress meter")
 		timer.Remove("MeterHUDRemove")
-	end
+		
+	 end
 end
-usermessage.Hook("CancelMeter",LDRP_SH.CancelMeter)
+
+  net.Receive( "CancelMeter" , LDRP_SH.CancelMeter )
 
 
 function LDRP.InputLockReason()
